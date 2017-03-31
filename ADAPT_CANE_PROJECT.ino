@@ -40,65 +40,65 @@ void clear_readings()
       readings[i] = 0;
    }
 }
-void loop() {
-  int i;
-  float avg = 0;
-  for(i = 0; i < reads_per_frame; i++)
-  {
-    sensorValue = analogRead(sensorIR);
-    inches = 4192.936 * pow(sensorValue,-0.935) - 3.937;
-    delay(50);
-    avg += inches;
-  }
-  avg = avg / (float) reads_per_frame;
-  clear_readings();
-  echo_readings();
-  //cm = 10650.08 * pow(sensorValue,-0.935) - 10;
-//  delay((100));
-  Serial.print("Inches: ");
-  Serial.println(avg);
-}
+//void loop() {
+//  int i;
+//  float avg = 0;
+//  for(i = 0; i < reads_per_frame; i++)
+//  {
+//    sensorValue = analogRead(sensorIR);
+//    inches = 4192.936 * pow(sensorValue,-0.935) - 3.937;
+//    delay(50);
+//    avg += inches;
+//  }
+//  avg = avg / (float) reads_per_frame;
+//  clear_readings();
+//  echo_readings();
+//  //cm = 10650.08 * pow(sensorValue,-0.935) - 10;
+////  delay((100));
+//  Serial.print("Inches: ");
+//  Serial.println(avg);
+//}
 
 
 //Original code
-//void loop() {
-//  int i;
-//  sensorValue = analogRead(sensorIR);
-//  inches = 4192.936 * pow(sensorValue,-0.935) - 3.937;
-//  if(counter == 0){prev = inches;}
-// 
-//  if(inches - prev > 3)
-//  {
-//    Serial.print("inches: ");
-//    Serial.print(inches);
-//    Serial.print(" prev: ");
-//    Serial.print(prev);
-//    Serial.print("dropoff possible (num dropoffs occured):");
-//    num_dropoffs++;
-//    Serial.println(num_dropoffs);
-////    digitalWrite(motor_pin, HIGH);
-////    delay(100);
-////    digitalWrite(motor_pin, LOW);
-//  }
-//      prev = inches;
-//      readings[counter] = inches;
-//      counter++;
-//      if(counter == reads_per_frame)
-//      {
-//        float avg = 0;
-//        for(i = 0; i < reads_per_frame; i++)
-//        {
-//          avg += (float) readings[i];
-//        }
-//        avg = avg / ((float) reads_per_frame);
-//        counter = 0;
-//        Serial.print("Inches: ");
-//        echo_readings();
-//        clear_readings();
-//      }
-//    
-//  //cm = 10650.08 * pow(sensorValue,-0.935) - 10;
-//  delay((100));
-//  Serial.print("Inches: ");
-//  Serial.println(inches);
-//}
+void loop() {
+  int i;
+  sensorValue = analogRead(sensorIR);
+  inches = 4192.936 * pow(sensorValue,-0.935) - 3.937;
+  if(counter == 0){prev = inches;}
+ 
+  if(inches - prev > 3)
+  {
+    Serial.print("inches: ");
+    Serial.print(inches);
+    Serial.print(" prev: ");
+    Serial.print(prev);
+    Serial.print("dropoff possible (num dropoffs occured):");
+    num_dropoffs++;
+    Serial.println(num_dropoffs);
+//    digitalWrite(motor_pin, HIGH);
+//    delay(100);
+//    digitalWrite(motor_pin, LOW);
+  }
+      prev = inches;
+      readings[counter] = inches;
+      counter++;
+      if(counter == reads_per_frame)
+      {
+        float avg = 0;
+        for(i = 0; i < reads_per_frame; i++)
+        {
+          avg += (float) readings[i];
+        }
+        avg = avg / ((float) reads_per_frame);
+        counter = 0;
+        Serial.print("Inches: ");
+        echo_readings();
+        clear_readings();
+      }
+    
+  //cm = 10650.08 * pow(sensorValue,-0.935) - 10;
+  delay((100));
+  Serial.print("Inches: ");
+  Serial.println(inches);
+}
