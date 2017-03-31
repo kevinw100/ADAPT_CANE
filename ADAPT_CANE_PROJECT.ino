@@ -1,4 +1,4 @@
-//  Noah Stahl
+//  Noah Stahl EDITED
 //  5/25/2011
 //  http://arduinomega.blogspot.com
 //  Arduino Mega 2560
