@@ -56,7 +56,7 @@ void loop() {
     prev = avg;
     first = false;
   }
-  if (avg - prev > 3) {
+  if (avg - prev > 4) {
     Serial.print("current average: ");
     Serial.print(avg);
     Serial.print(" previous average: ");
