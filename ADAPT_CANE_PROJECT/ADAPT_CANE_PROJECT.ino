@@ -9,7 +9,7 @@
 #define sensorIR A0           //Must be an analog pin
 float sensorValue, inches, cm, prev;    //Must be of type float for pow()
 int counter = 0;
-int reads_per_frame = 4;
+int reads_per_frame = 1;
 //Consider case where it's equal to 0
 float readings[4];
 int num_dropoffs = 0;
@@ -55,18 +55,6 @@ void loop() {
   if (first) {
     prev = avg;
     first = false;
-  }
-  if (avg - prev > 4) {
-    Serial.print("current average: ");
-    Serial.print(avg);
-    Serial.print(" previous average: ");
-    Serial.print(prev);
-    Serial.print("dropoff possible (num dropoffs occured):");
-    num_dropoffs++;
-    Serial.println(num_dropoffs);
-    digitalWrite(motor_pin, HIGH);
-    delay(100);
-    digitalWrite(motor_pin, LOW);
   }
   prev = avg;
   clear_readings();
