@@ -6,63 +6,45 @@
 //The sensor output is attached to analog pin 15. Once the distance
 //is calculated, it is printed out to the serial monitor.
 
-#define sensorIR A0           //Must be an analog pin
+//#define sensorIR A0           //Must be an analog pin
 float sensorValue, inches, cm, prev;    //Must be of type float for pow()
 int counter = 0;
 int reads_per_frame = 1;
 //Consider case where it's equal to 0
 float readings[4];
 int num_dropoffs = 0;
-int motor_pin = 7;
+#define sensor_pin A0
 bool first = true;
 
 void setup() {
-  pinMode(motor_pin, OUTPUT);
   Serial.begin(9600);
 }
-int length(float arr[])
-{
-  return sizeof(arr) / sizeof(float);
-}
-void echo_readings(){
-  int i;
-  Serial.print("[");
-  for(i = 0; i < length(readings); i++)
-  {
-    Serial.print((int)readings[i] + ",");
-  }
-  Serial.print("]");
-}
-void clear_readings()
-{
-   int i;
-   for(i = 0; i < length(readings); i++)
-   {
-      readings[i] = 0;
-   }
-}
+//int length(float arr[])
+//{
+//  return sizeof(arr) / sizeof(float);
+//}
+//void echo_readings(){
+//  int i;
+//  for(i = 0; i < length(readings); i++)
+//  {
+//    Serial.print(readings[i] + ",");
+//  }
+//}
+//void clear_readings()
+//{
+//   int i;
+//   for(i = 0; i < length(readings); i++)
+//   {
+//      readings[i] = 0;
+//   }
+//}
 void loop() {
-  int i;
-  float avg = 0;
-  for(i = 0; i < reads_per_frame; i++)
-  {
-    sensorValue = analogRead(sensorIR);
-    inches = 4192.936 * pow(sensorValue,-0.935) - 3.937;
-    delay(50);
-    avg += inches;
-  }
-  avg = avg / (float) reads_per_frame;
-  if (first) {
-    prev = avg;
-    first = false;
-  }
-  prev = avg;
-  clear_readings();
-  echo_readings();
+  sensorValue = analogRead(sensor_pin);
+  inches = 4192.936 * pow(sensorValue,-0.935) - 3.937;
+  delay(100);
   //cm = 10650.08 * pow(sensorValue,-0.935) - 10;
-  delay((100));
   Serial.print("Inches: ");
-  Serial.println(avg);
+  Serial.println(inches);
 }
 
 
